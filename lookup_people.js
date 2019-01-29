@@ -10,7 +10,7 @@ const client = new pg.Client({
   ssl      : settings.ssl
 });
 
-let name = process.argv[2];
+const name = process.argv[2];
 
 function selectByName (inputName, callback) {
   client.connect((err) => {
@@ -26,7 +26,7 @@ function selectByName (inputName, callback) {
           displayPerson(result);
         }
     });
-  })
+  });
 }
 
 function displayPerson(people) {
@@ -40,6 +40,7 @@ function inDatabase (dbResult) {
   //if name is not in db
   if(!dbResult.rowCount){
    console.log("name is not in database");
+   client.end();
    return false;
   } else{
     return true;
