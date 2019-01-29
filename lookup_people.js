@@ -25,13 +25,13 @@ function selectByName (inputName, callback) {
       if (err) {
         return console.error("error running query", err);
       }
-      result.rows.forEach(function(row, i){
-        callback(row, i);
-      });
+      displayPerson(result);
       client.end();
   });
 }
 
-function displayPerson(person, num) {
-  console.log(`- ${num + 1}: ${person.first_name} ${person.last_name}, born '${person.birthdate.toISOString().split('T')[0]}'`);
+function displayPerson(people) {
+  people.rows.forEach(function(row, i){
+    console.log(`- ${i + 1}: ${row.first_name} ${row.last_name}, born '${row.birthdate.toISOString().split('T')[0]}'`);
+  });
 }
