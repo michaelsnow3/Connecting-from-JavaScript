@@ -1,0 +1,22 @@
+{
+  "name": "connecting-from-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelsnow3/Connecting-from-JavaScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelsnow3/Connecting-from-JavaScript/issues"
+  },
+  "homepage": "https://github.com/michaelsnow3/Connecting-from-JavaScript#readme",
+  "dependencies": {
+    "pg": "^7.8.0"
+  }
+}
