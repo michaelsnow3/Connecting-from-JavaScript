@@ -16,18 +16,22 @@ client.connect((err) => {
   if (err) {
     return console.error("Connection Error", err);
   }
-  selectByName(name);
+  selectByName(name, displayPerson);
 });
 
-function selectByName (inputName) {
+function selectByName (inputName, callback) {
     client.query(`SELECT * FROM famous_people
       WHERE first_name = $1 OR last_name = $1`, [inputName], (err, result) => {
       if (err) {
         return console.error("error running query", err);
       }
-      result.rows.forEach(function(row, i) {
-        console.log(`- ${i + 1}: ${row.first_name} ${row.last_name}, born '${row.birthdate.toISOString().split('T')[0]}'`);
+      result.rows.forEach(function(row, i){
+        callback(row, i);
       });
       client.end();
   });
+}
+
+function displayPerson(person, num) {
+  console.log(`- ${num + 1}: ${person.first_name} ${person.last_name}, born '${person.birthdate.toISOString().split('T')[0]}'`);
 }
