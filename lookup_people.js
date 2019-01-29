@@ -12,32 +12,28 @@ const client = new pg.Client({
 
 let name = process.argv[2];
 
-client.connect((err) => {
-  if (err) {
-    return console.error("Connection Error", err);
-  }
-  selectByName(name, displayPerson);
-});
-
 function selectByName (inputName, callback) {
-    client.query(`SELECT * FROM famous_people
-      WHERE first_name = $1 OR last_name = $1`, [inputName], (err, result) => {
-      if (err) {
-        return console.error("error running query", err);
-      }
-
-      if(inDatabase(result)){
-        displayPerson(result);
-      }
-
-      client.end();
-  });
+  client.connect((err) => {
+    if (err) {
+      return console.error("Connection Error", err);
+    }
+      client.query(`SELECT * FROM famous_people
+        WHERE first_name = $1 OR last_name = $1`, [inputName], (err, result) => {
+        if (err) {
+          return console.error("error running query", err);
+        }
+        if(inDatabase(result)){
+          displayPerson(result);
+        }
+    });
+  })
 }
 
 function displayPerson(people) {
   people.rows.forEach(function(row, i){
     console.log(`- ${i + 1}: ${row.first_name} ${row.last_name}, born '${row.birthdate.toISOString().split('T')[0]}'`);
   });
+  client.end();
 }
 
 function inDatabase (dbResult) {
@@ -49,3 +45,5 @@ function inDatabase (dbResult) {
     return true;
   }
 }
+
+selectByName(name, displayPerson);
