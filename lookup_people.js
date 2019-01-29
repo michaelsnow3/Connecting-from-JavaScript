@@ -26,10 +26,7 @@ function selectByName (inputName, callback) {
         return console.error("error running query", err);
       }
 
-      //if name is not in db
-      if(!result.rowCount){
-        console.log("name is not in database");
-      } else{
+      if(inDatabase(result)){
         displayPerson(result);
       }
 
@@ -41,4 +38,14 @@ function displayPerson(people) {
   people.rows.forEach(function(row, i){
     console.log(`- ${i + 1}: ${row.first_name} ${row.last_name}, born '${row.birthdate.toISOString().split('T')[0]}'`);
   });
+}
+
+function inDatabase (dbResult) {
+  //if name is not in db
+  if(!dbResult.rowCount){
+   console.log("name is not in database");
+   return false;
+  } else{
+    return true;
+  }
 }
