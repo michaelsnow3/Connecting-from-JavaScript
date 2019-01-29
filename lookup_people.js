@@ -25,7 +25,14 @@ function selectByName (inputName, callback) {
       if (err) {
         return console.error("error running query", err);
       }
-      displayPerson(result);
+
+      //if name is not in db
+      if(!result.rowCount){
+        console.log("name is not in database");
+      } else{
+        displayPerson(result);
+      }
+
       client.end();
   });
 }
