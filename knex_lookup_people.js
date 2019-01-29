@@ -14,7 +14,7 @@ var knex = require('knex')({
 const inputName = process.argv[2];
 
 function selectByName (name, callback) {
-  if(!inputName) {
+  if(!name) {
     console.log('No name entered');
     close();
     return 0;
